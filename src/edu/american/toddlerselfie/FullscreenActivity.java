@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageView;
 import edu.american.toddlerselfie.util.SystemUiHider;
 
@@ -27,7 +28,7 @@ public class FullscreenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		context=this;
 		setContentView(R.layout.activity_fullscreen);
-
+		findViewById(R.id.picture).setVisibility(View.INVISIBLE);
 		findViewById(R.id.start).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -36,7 +37,7 @@ public class FullscreenActivity extends Activity {
 				startActivityForResult(intent, CAMERA_PIC_REQUEST);
 			}
 		});
-		//findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
+		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
 
 		findViewById(R.id.settingsButton).setOnClickListener(new OnClickListener() {
 
@@ -45,13 +46,14 @@ public class FullscreenActivity extends Activity {
 
 				// custom dialog
 				dialog = new Dialog(context);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
 				dialog.setContentView(R.layout.puzzle_layout);
 				dialog.setCanceledOnTouchOutside(true);
-				dialog.setTitle("Settings");
 				dialog.findViewById(R.id.newButton).setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
+						dialog.dismiss();
 						Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 						startActivityForResult(intent, CAMERA_PIC_REQUEST);
 					}
@@ -71,7 +73,6 @@ public class FullscreenActivity extends Activity {
 						dialog.dismiss();
 					}
 				});
-
 				dialog.show();
 			}
 		});
@@ -87,6 +88,7 @@ public class FullscreenActivity extends Activity {
 			ImageView v = (ImageView) findViewById(R.id.picture);
 			v.setImageBitmap(thumbnail);
 
+			findViewById(R.id.picture).setVisibility(View.VISIBLE);
 			findViewById(R.id.start).setVisibility(View.GONE);
 			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
 		}

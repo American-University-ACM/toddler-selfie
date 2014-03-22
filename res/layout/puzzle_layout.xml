@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@drawable/dialogue"
     android:maxHeight="250dp"
-    android:minWidth="250dp"
+    android:minHeight="250dp"
+    android:minWidth="300dp"
     tools:context=".FullscreenActivity" >
 
     <ImageButton
@@ -13,28 +14,28 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/newbutton" />
-    
-    <ImageButton
-        android:id="@+id/resetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/newButton"
-        android:layout_below="@+id/newButton"
         android:layout_marginTop="25dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/resetbutton" />
-    
+        android:src="@drawable/newbuttonstyle" />
+
     <ImageButton
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/resetButton"
-        android:layout_below="@+id/resetButton"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/newButton"
         android:layout_marginTop="25dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/cancelbutton" />
+        android:src="@drawable/cancelbuttonstyle" />
+
+    <ImageButton
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/cancelButton"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/resetbuttonstyle" />
 
 </RelativeLayout>
