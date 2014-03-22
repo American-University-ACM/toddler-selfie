@@ -1,6 +1,7 @@
 package edu.american.toddlerselfie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -25,11 +26,11 @@ public class ImageSlicer {
 		}
 	}
 
-	public PuzzlePiece[] puzzlify(Bitmap img) {
+	public List<PuzzlePiece> puzzlify(Bitmap img) {
 		return puzzlify(img, JOINER_WIDTH, JOINER_HEIGHT);
 	}
 
-	public PuzzlePiece[] puzzlify(Bitmap img, int tileWidth, int joinerWidth) {
+	public List<PuzzlePiece> puzzlify(Bitmap img, int tileWidth, int joinerWidth) {
 		PuzzlePiece[][] raws = slice(
 				img,
 				tileWidth + joinerWidth,
@@ -40,11 +41,11 @@ public class ImageSlicer {
 		int rows = raws.length,
 			cols = raws[0].length;
 		
-		PuzzlePiece[] pieces = new PuzzlePiece[rows * cols];
+		List<PuzzlePiece> pieces = new ArrayList<PuzzlePiece>();
 		
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
-				pieces[(row * cols) + col] = raws[row][col];
+				pieces.add((row * cols) + col, raws[row][col]);
 			}
 		}
 		
