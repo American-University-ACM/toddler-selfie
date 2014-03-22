@@ -3,17 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".FullscreenActivity"
-    >
+    android:maxHeight="250dp"
+    android:minWidth="250dp"
+    tools:context=".FullscreenActivity" >
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/newButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="209dp"
-        android:layout_marginTop="119dp"
-        android:src="@drawable/ic_launcher" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-5dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/newbutton" />
+    
+    <ImageButton
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/newButton"
+        android:layout_below="@+id/newButton"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/resetbutton" />
+    
+    <ImageButton
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/resetButton"
+        android:layout_below="@+id/resetButton"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/cancelbutton" />
 
 </RelativeLayout>
