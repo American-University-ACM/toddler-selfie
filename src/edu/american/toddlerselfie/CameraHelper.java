@@ -19,29 +19,11 @@ public class CameraHelper extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.camera_fullscreen);
 		// 1
-		Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-		startActivityForResult(intent, CAMERA_PIC_REQUEST);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAMERA_PIC_REQUEST) {
-			Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-			thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-			thumbnail = Bitmap.createScaledBitmap(thumbnail, 480, 480, true);
-			File file = new File(Environment.getExternalStorageDirectory() + File.separator + "image.jpg");
-			try {
-				file.createNewFile();
-				FileOutputStream fo = new FileOutputStream(file);
-				fo.write(bytes.toByteArray());
-				fo.close();
-			} catch (IOException e) {
-				Log.wtf(this.getClass().getSimpleName(), "Could not save image", e);
-			}
-			ImageView v = (ImageView) findViewById(R.id.picture);
-			v.setImageBitmap(thumbnail);
+		{
 			finishActivity(0);
 		}
 	}
