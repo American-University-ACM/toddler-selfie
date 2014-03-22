@@ -30,8 +30,4 @@ public class FullscreenActivity extends Activity {
 		});
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-	}
 }
