@@ -1,6 +1,9 @@
 package edu.american.toddlerselfie;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 public class PuzzlePiece {
 
@@ -19,7 +22,7 @@ public class PuzzlePiece {
 	public BoundingBox getCorrectBoundingBox() {
 		return bb;
 	}
-
+	
 	public boolean correctLocation(double x, double y) {
 		return bb.contains(x, y);
 	}
