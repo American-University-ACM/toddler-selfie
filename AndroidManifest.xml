@@ -8,6 +8,16 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="14" />
 
+    <uses-feature
+        android:name="android:hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
