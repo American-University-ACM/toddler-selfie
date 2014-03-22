@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".FullscreenActivity"
-    >
+    tools:context=".FullscreenActivity" >
 
     <TextView
         android:id="@+id/title"
@@ -16,10 +15,19 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="50sp" />
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_launcher" />
+
     <ImageView
         android:id="@+id/picture"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/start"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_launcher" />
