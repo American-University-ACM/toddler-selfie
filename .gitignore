@@ -27,3 +27,7 @@ proguard/
 *.ipr
 *.iws
 .idea/
+.settings/
+.DS_STORE
+bin
+ref/*
