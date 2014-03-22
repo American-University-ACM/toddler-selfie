@@ -86,7 +86,7 @@ public class FullscreenActivity extends Activity {
 			
 			ImageView v = (ImageView) findViewById(R.id.picture);
 			ImageSlicer is = new ImageSlicer(this);
-			v.setImageBitmap(is.puzzlify(thumbnail).get(0).getImage());
+			v.setImageBitmap(is.puzzlify(thumbnail).get(7).getImage());
 
 			findViewById(R.id.picture).setVisibility(View.VISIBLE);
 			findViewById(R.id.start).setVisibility(View.GONE);
