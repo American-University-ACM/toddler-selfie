@@ -5,17 +5,6 @@
     android:background="@drawable/background"
     tools:context=".FullscreenActivity" >
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/toddler_selfie"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50sp" />
-
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
@@ -30,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
         android:background="@android:color/transparent"
         android:src="@drawable/newbuttonstyle"
         android:text="@string/getStarted" />
@@ -42,7 +31,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@id/start"
+        android:background="@drawable/title" />
 
 </RelativeLayout>

@@ -29,6 +29,7 @@ public class FullscreenActivity extends Activity {
 		context=this;
 		setContentView(R.layout.activity_fullscreen);
 		findViewById(R.id.picture).setVisibility(View.INVISIBLE);
+		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
 		findViewById(R.id.start).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -37,8 +38,6 @@ public class FullscreenActivity extends Activity {
 				startActivityForResult(intent, CAMERA_PIC_REQUEST);
 			}
 		});
-		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
-
 		findViewById(R.id.settingsButton).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -92,6 +91,7 @@ public class FullscreenActivity extends Activity {
 			findViewById(R.id.picture).setVisibility(View.VISIBLE);
 			findViewById(R.id.start).setVisibility(View.GONE);
 			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
+			findViewById(R.id.title).setVisibility(View.GONE);
 		}
 	}
 
