@@ -1,6 +1,7 @@
 package edu.american.toddlerselfie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -25,26 +26,128 @@ public class ImageSlicer {
 		}
 	}
 
-	public PuzzlePiece[] puzzlify(Bitmap img) {
+	public List<PuzzlePiece> puzzlify(Bitmap img) {
 		return puzzlify(img, JOINER_WIDTH, JOINER_HEIGHT);
 	}
 
-	public PuzzlePiece[] puzzlify(Bitmap img, int tileWidth, int joinerWidth) {
+	public List<PuzzlePiece> puzzlify(Bitmap img, int tileWidth, int joinerWidth) {
+
+		//Cut up pieces
 		PuzzlePiece[][] raws = slice(
-				img,
-				tileWidth + joinerWidth,
-				joinerWidth,
-				(int) (-.5 * joinerWidth)
-				);
+			img,
+			tileWidth + (2 * joinerWidth),
+			joinerWidth,
+			(int) (-.5 * joinerWidth)
+		);
 		
 		int rows = raws.length,
 			cols = raws[0].length;
-		
-		PuzzlePiece[] pieces = new PuzzlePiece[rows * cols];
+
+		//Flatten 2-d array
+		List<PuzzlePiece> pieces = new ArrayList<PuzzlePiece>();
 		
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
-				pieces[(row * cols) + col] = raws[row][col];
+				pieces.add(raws[row][col]);
+			}
+		}
+		
+		//Mask horizontal joiners
+		Bitmap left, right, mask;
+		int[] leftPixels = new int[tileWidth * joinerWidth];
+		int[] rightPixels = new int[tileWidth * joinerWidth];
+		int[] maskPixels = new int[tileWidth * joinerWidth];
+		int jSize = joiners.size(),
+			lFlip, rFlip, topOffset, leftOffset,
+			ii, jj = 0;
+		
+		for (int row = 0; row < rows; row++) {
+			if (row == 0)
+				topOffset = (int) (joinerWidth / 2);
+			else
+				topOffset = joinerWidth;
+
+			
+			for (int col = 0; col < cols - 1; col++) {
+				if (col == 0)
+					leftOffset = tileWidth - (int) (joinerWidth / 2);
+				else
+					leftOffset = tileWidth;
+
+				left = pieces.get(row * cols + col).getImage();
+				right = pieces.get(row * cols + col + 1).getImage();
+				mask = joiners.get((int) Math.floor(Math.random() * jSize));
+				lFlip = (Math.random() < 0.5) ? 0xFFFFFFFF : 0x00000000; 
+				rFlip = 0 - lFlip;
+				
+				//Load relevant portions of images
+				System.out.println("Loading from " + row + ", " + col);
+				System.out.println("Times we've done this: " + jj++);
+				System.out.println("Total: " + left.getWidth() + "x" + left.getHeight());
+				System.out.println(joinerWidth + "x" + tileWidth + " offset by " + leftOffset + ", " + topOffset);
+				left.getPixels(
+					leftPixels,
+					0,
+					joinerWidth,
+					leftOffset,
+					topOffset,
+					joinerWidth,
+					tileWidth
+				);
+				right.getPixels(
+					rightPixels,
+					0,
+					joinerWidth,
+					0,
+					topOffset,
+					joinerWidth,
+					tileWidth
+				);
+				mask.getPixels(
+					maskPixels,
+					0,
+					tileWidth,
+					0,
+					0,
+					tileWidth,
+					joinerWidth
+				);
+				
+				//Do the mask
+				//This one is more complicated than the top-bottom ones because
+				//  the joiners need to be transposed
+				ii = 0;
+				for (int pxRow = 0; pxRow < tileWidth; pxRow++) {
+					for (int pxCol = 0; pxCol < joinerWidth; pxCol++) {
+						leftPixels[ii] =
+							((lFlip - maskPixels[pxCol * joinerWidth + pxRow]) & 0xFF000000)
+							+ (leftPixels[ii] & 0x00FFFFFF);
+						rightPixels[ii] =
+								((rFlip - maskPixels[pxCol * joinerWidth + pxRow]) & 0xFF000000)
+								+ (rightPixels[ii] & 0x00FFFFFF);
+						ii++;
+					}
+				}
+
+				//Put alpha-d values back into the bitmaps
+				left.setPixels(
+					leftPixels,
+					0,
+					joinerWidth,
+					leftOffset,
+					topOffset,
+					joinerWidth,
+					tileWidth
+				);
+				right.setPixels(
+					rightPixels,
+					0,
+					joinerWidth,
+					0,
+					topOffset,
+					joinerWidth,
+					tileWidth
+				);
 			}
 		}
 		
@@ -67,6 +170,8 @@ public class ImageSlicer {
 			for (int col = 0; col < cols; col++) {
 				x = Math.max((col * (tileSize - overlap)) + offset, 0);
 				w = Math.min(tileSize, imgWidth - x);
+				
+				System.out.println(w + ", " + h + " offset by " + x + ", " + y);
 				
 				slices[row][col] = new PuzzlePiece(
 					Bitmap.createBitmap(img, x, y, w, h),
