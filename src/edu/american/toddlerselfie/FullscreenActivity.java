@@ -73,7 +73,6 @@ public class FullscreenActivity extends Activity {
 						dialog.dismiss();
 					}
 				});
-
 				dialog.show();
 			}
 		});
