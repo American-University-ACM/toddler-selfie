@@ -22,6 +22,5 @@ public class PuzzleView extends View {
 		display.getSize(size);
 		screenWidth = this.getWidth();
 		screenHeight = this.getHeight();
-		
 	}
 }

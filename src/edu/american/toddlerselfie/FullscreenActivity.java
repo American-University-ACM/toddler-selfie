@@ -35,20 +35,21 @@ public class FullscreenActivity extends Activity {
 				startActivityForResult(intent, CAMERA_PIC_REQUEST);
 			}
 		});
-		//findViewById(R.id.backButton).setVisibility(View.INVISIBLE);
-		
-		findViewById(R.id.backButton).setOnClickListener(new OnClickListener() {
-			 
-			  @Override
-			  public void onClick(View arg0) {
-	 
+		//findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
+
+		findViewById(R.id.settingsButton).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
 				// custom dialog
 				final Dialog dialog = new Dialog(context);
 				dialog.setContentView(R.layout.puzzle_layout);
-				dialog.setTitle("Options");	 
+				dialog.setCanceledOnTouchOutside(true);
 				dialog.show();
-			  }
-			});
+			}
+		});
+		
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -58,7 +59,7 @@ public class FullscreenActivity extends Activity {
 			ImageView v = (ImageView) findViewById(R.id.picture);
 			v.setImageBitmap(thumbnail);
 			findViewById(R.id.start).setVisibility(View.INVISIBLE);
-			findViewById(R.id.backButton).setVisibility(View.VISIBLE);
+			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
 		}
 	}
 
