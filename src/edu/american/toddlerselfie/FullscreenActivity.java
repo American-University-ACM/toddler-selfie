@@ -82,7 +82,7 @@ public class FullscreenActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAMERA_PIC_REQUEST) {
 			Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-			thumbnail = Bitmap.createScaledBitmap(thumbnail, 700, 480, true);
+			thumbnail = Bitmap.createScaledBitmap(thumbnail, 720, 480, true);
 			ImageView v = (ImageView) findViewById(R.id.picture);
 			v.setImageBitmap(thumbnail);
 			findViewById(R.id.start).setVisibility(View.GONE);

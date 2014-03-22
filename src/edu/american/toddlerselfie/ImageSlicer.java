@@ -9,14 +9,17 @@ public class ImageSlicer {
 
 	static final int JOINER_WIDTH = 80;
 	static final int JOINER_HEIGHT = 40;
-	static final String JOINER_SHEET = "puzzle_joiners.bmp";
-
+	static final String JOINER_SHEET = "joiners.bmp";
+	
 	ArrayList<Bitmap> joiners;
 
 	public ImageSlicer(Context ctx) {
 		this.joiners = new ArrayList<Bitmap>();
 
-		Bitmap allJoiners = new ImageLoader(ctx).load(JOINER_SHEET);
+		ImageLoader il = new ImageLoader(ctx);
+		Bitmap allJoiners = il.load(JOINER_SHEET);
+		System.out.println("Got joiners file");
+
 		for (int offset = 0; offset + JOINER_HEIGHT < allJoiners.getHeight(); offset += JOINER_HEIGHT) {
 			this.joiners.add(Bitmap.createBitmap(allJoiners, 0, offset, JOINER_WIDTH, JOINER_HEIGHT));
 		}
@@ -27,19 +30,37 @@ public class ImageSlicer {
 	}
 
 	public Bitmap[][] puzzlify(Bitmap img, int tileWidth, int joinerWidth) {
-		Bitmap[][] raws = slice(img, tileWidth + joinerWidth, tileWidth + joinerWidth, (int) (-.5 * joinerWidth), (int) (-.5 * joinerWidth));
-
+		Bitmap[][] raws = slice(
+				img,
+				tileWidth + joinerWidth,
+				joinerWidth,
+				(int) (-.5 * joinerWidth)
+				);
+		
 		return raws;
 	}
-
-	public Bitmap[][] slice(Bitmap img, int width, int height, int offsetX, int offsetY) {
-		int imgWidth = img.getWidth(), imgHeight = img.getHeight();
-
-		Bitmap[][] ret = new Bitmap[(imgHeight + offsetY) / height][];
-		for (Bitmap[] row : ret) {
-			row = new Bitmap[(imgWidth + offsetX) / width];
+	
+	public Bitmap[][] slice(Bitmap img, int tileSize, int overlap, int offset) {
+		int imgWidth = img.getWidth(),
+			imgHeight = img.getHeight(),
+			x, y, w, h,
+			rows = (imgHeight - offset) / (tileSize - overlap),
+			cols = (imgWidth - offset) / (tileSize - overlap);
+		
+		Bitmap[][] slices = new Bitmap[rows][cols];
+		
+		for (int row = 0; row < rows; row++) {
+			y = Math.max((row * (tileSize - overlap)) + offset, 0);
+			h = Math.min(tileSize, imgHeight - y);
+			
+			for (int col = 0; col < cols; col++) {
+				x = Math.max((col * (tileSize - overlap)) + offset, 0);
+				w = Math.min(tileSize, imgWidth - x);
+				
+				slices[row][col] = Bitmap.createBitmap(img,	x, y, w, h);
+			}
 		}
-
-		return ret;
+		
+		return slices;
 	}
 }
