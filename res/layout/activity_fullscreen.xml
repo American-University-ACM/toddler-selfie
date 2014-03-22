@@ -13,7 +13,9 @@
         android:layout_centerHorizontal="true"
         android:text="@string/toddler_selfie"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        android:layout_marginBottom="10dp"
+         />
 
     <ImageButton
         android:id="@+id/settingsButton"
@@ -36,7 +38,8 @@
         android:id="@+id/picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/start"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_launcher" />
 
