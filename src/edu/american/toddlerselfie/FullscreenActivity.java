@@ -26,8 +26,8 @@ public class FullscreenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		context=this;
 		setContentView(R.layout.activity_fullscreen);
-		View v = findViewById(R.id.start);
-		v.setOnClickListener(new OnClickListener() {
+		
+		findViewById(R.id.start).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -40,7 +40,7 @@ public class FullscreenActivity extends Activity {
 		findViewById(R.id.settingsButton).setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
 
 				// custom dialog
 				final Dialog dialog = new Dialog(context);

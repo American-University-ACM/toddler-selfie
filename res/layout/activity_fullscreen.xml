@@ -24,14 +24,6 @@
         android:background="@android:color/transparent"
         android:src="@drawable/settingsflag" />
 
-    <ImageView
-        android:id="@+id/picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/start"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher" />
-
     <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
@@ -39,5 +31,13 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/getStarted" />
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/start"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>
