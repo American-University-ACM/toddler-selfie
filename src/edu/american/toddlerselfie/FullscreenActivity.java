@@ -36,6 +36,8 @@ public class FullscreenActivity extends Activity {
 		});
 	}
 
+<<<<<<< HEAD
+=======
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		File file = new File(Environment.getExternalStorageDirectory() + File.separator + "image.jpg");
 		Bitmap b = BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -43,4 +45,5 @@ public class FullscreenActivity extends Activity {
 		v.setImageBitmap(b);
 	}
 
+>>>>>>> 1103ba2b214c4554eafab2124d48d539327fefe6
 }
