@@ -16,13 +16,10 @@ import android.widget.ImageView;
 public class CameraHelper extends Activity {
 
 	private static final int CAMERA_PIC_REQUEST = 1111;
-	private ImageView mImage;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.camera_fullscreen);
-
-		mImage = (ImageView) findViewById(R.id.camera_image);
 		// 1
 		Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(intent, CAMERA_PIC_REQUEST);
