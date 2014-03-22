@@ -19,7 +19,7 @@
         android:src="@drawable/newbuttonstyle" />
 
     <ImageButton
-        android:id="@+id/cancelButton"
+        android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -29,11 +29,11 @@
         android:src="@drawable/cancelbuttonstyle" />
 
     <ImageButton
-        android:id="@+id/resetButton"
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/cancelButton"
+        android:layout_below="@+id/resetButton"
         android:layout_marginTop="25dp"
         android:background="@android:color/transparent"
         android:src="@drawable/resetbuttonstyle" />
