@@ -20,14 +20,15 @@ import edu.american.toddlerselfie.util.SystemUiHider;
 public class FullscreenActivity extends Activity {
 	private static final int CAMERA_PIC_REQUEST = 1111;
 	private Context context;
+	private Dialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context=this;
 		setContentView(R.layout.activity_fullscreen);
-		View v = findViewById(R.id.start);
-		v.setOnClickListener(new OnClickListener() {
+
+		findViewById(R.id.start).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -40,25 +41,51 @@ public class FullscreenActivity extends Activity {
 		findViewById(R.id.settingsButton).setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
 
 				// custom dialog
-				final Dialog dialog = new Dialog(context);
+				dialog = new Dialog(context);
 				dialog.setContentView(R.layout.puzzle_layout);
 				dialog.setCanceledOnTouchOutside(true);
+				dialog.setTitle("Settings");
+				dialog.findViewById(R.id.newButton).setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+						startActivityForResult(intent, CAMERA_PIC_REQUEST);
+					}
+				});
+
+				dialog.findViewById(R.id.resetButton).setOnClickListener(new OnClickListener() {//TODO: remove puzzle pieces
+
+					@Override
+					public void onClick(View v) {
+
+					}
+				});
+				dialog.findViewById(R.id.cancelButton).setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
+
 				dialog.show();
 			}
 		});
-		
+
+
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAMERA_PIC_REQUEST) {
 			Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-			thumbnail = Bitmap.createScaledBitmap(thumbnail, 700, 480, true);
+			thumbnail = Bitmap.createScaledBitmap(thumbnail, 720, 480, true);
 			ImageView v = (ImageView) findViewById(R.id.picture);
 			v.setImageBitmap(thumbnail);
-			findViewById(R.id.start).setVisibility(View.INVISIBLE);
+			findViewById(R.id.start).setVisibility(View.GONE);
 			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
 		}
 	}
