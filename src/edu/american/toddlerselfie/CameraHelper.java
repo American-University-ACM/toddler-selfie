@@ -36,6 +36,7 @@ public class CameraHelper extends Activity {
 			thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
 			thumbnail = Bitmap.createScaledBitmap(thumbnail, 480, 480, true);
 			File file = new File(Environment.getExternalStorageDirectory() + File.separator + "image.jpg");
+			System.out.println(file.getAbsolutePath());
 			try {
 				file.createNewFile();
 				FileOutputStream fo = new FileOutputStream(file);
