@@ -2,10 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:maxHeight="250dp"
-    android:minWidth="250dp"
+    android:background="@drawable/dialogue"
+    android:minHeight="325dp"
+    android:minWidth="300dp"
     tools:context=".FullscreenActivity" >
+
+    <ImageButton
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/newButton"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/resetbutton" />
 
     <ImageButton
         android:id="@+id/newButton"
@@ -13,27 +23,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/newbutton" />
-    
-    <ImageButton
-        android:id="@+id/resetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/newButton"
-        android:layout_below="@+id/newButton"
-        android:layout_marginTop="25dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/resetbutton" />
-    
+        android:src="@drawable/newbuttonstyle" />
+
     <ImageButton
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/resetButton"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/resetButton"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
         android:background="@android:color/transparent"
         android:src="@drawable/cancelbutton" />
 
