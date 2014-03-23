@@ -172,7 +172,7 @@ public class FullscreenActivity extends Activity {
 						//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));						
 						v.setX(Math.max(0, Math.min(screenWidth-v.getWidth(), endX-v.getHeight()/2)));
 						v.setY(Math.max(0, Math.min(screenHeight-v.getHeight(), endY-v.getWidth()/2)));					
-						if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
+						if(pieces.get(v.getId()).correctLocation(v.getX(), v.getY()))
 						{
 							v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
 							v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
