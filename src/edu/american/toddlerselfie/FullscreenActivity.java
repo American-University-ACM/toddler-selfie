@@ -28,13 +28,15 @@ import edu.american.toddlerselfie.util.SystemUiHider;
  * @see SystemUiHider
  */
 public class FullscreenActivity extends Activity {
-	private static final int CAMERA_PIC_REQUEST = 1111;
+	private static final int CAMERA_REQUEST = 1111;
+	private boolean hard=false;
 	private List<PuzzlePiece> pieces;
 	private PuzzleView puzzleView;
 	private Context context;
 	private Dialog dialog;
 	private ViewGroup layout;
 	private View viewPressed;
+	private int offsetx, offsety;
 	
 	@Override
 	public void onResume() {
@@ -55,7 +57,8 @@ public class FullscreenActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-				startActivityForResult(intent, CAMERA_PIC_REQUEST);
+				startActivityForResult(intent, CAMERA_REQUEST);
+				///hard=true;
 			}
 		});
 		findViewById(R.id.settingsButton).setOnClickListener(new OnClickListener() {
@@ -74,7 +77,8 @@ public class FullscreenActivity extends Activity {
 					public void onClick(View v) {
 						dialog.dismiss();
 						Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-						startActivityForResult(intent, CAMERA_PIC_REQUEST);
+						
+						startActivityForResult(intent, CAMERA_REQUEST);
 					}
 				});
 
@@ -100,7 +104,7 @@ public class FullscreenActivity extends Activity {
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAMERA_PIC_REQUEST) {
+		if (requestCode == CAMERA_REQUEST) {
 			Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 			thumbnail = Bitmap.createScaledBitmap(thumbnail, 720, 480, true);
 
@@ -110,8 +114,22 @@ public class FullscreenActivity extends Activity {
 			findViewById(R.id.start).setVisibility(View.GONE);
 			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
 			findViewById(R.id.title).setVisibility(View.GONE); 
-
-			ImageSlicer imageSlice= new ImageSlicer(this);
+			ImageSlicer imageSlice;
+			System.out.println("this is the result code "+resultCode);
+			if(hard)
+			{
+				imageSlice= new ImageSlicer(this,80,40);
+				offsetx=-140;
+				offsety=39;
+				System.out.println("YES WE REACHED THIS");
+			}
+			else
+			{
+				imageSlice= new ImageSlicer(this);
+				offsetx=0;
+				offsety=180;
+				System.out.println("YES WE REACHED THIS 2");
+			}
 			pieces=imageSlice.puzzlify(thumbnail);
 			Collections.shuffle(pieces);
 			for (int i = 0; i < pieces.size(); i++) {
@@ -127,7 +145,7 @@ public class FullscreenActivity extends Activity {
 							startY=v.getY();
 							return true;
 						}
-						else if(event.getAction()==MotionEvent.ACTION_MOVE)
+						else if(event.getAction()==MotionEvent.ACTION_MOVE /*&& v.getX() <1280-v.getHeight() && v.getX() > 0 && v.getY() < 720 - v.getHeight() && v.getY() > 0*/)
 						{
 							endX=event.getRawX();
 							endY=event.getRawY();
@@ -135,9 +153,12 @@ public class FullscreenActivity extends Activity {
 							v.setX(endX-v.getHeight()/2);
 							v.setY(endY-v.getWidth()/2);					
 							if(pieces.get(v.getId()).correctLocation(v.getX()-(v.getWidth()/2), v.getY()-(v.getHeight()/2)))
+							v.setX(Math.max(0, Math.min(1280-v.getWidth(),endX-v.getHeight()/2)));
+							v.setY(Math.max(0, Math.min( 720-v.getHeight(), endY-v.getWidth()/2)));					
+							if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
 							{
-								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight);
-								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-180);
+								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
+								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
 								v.setOnTouchListener(null);
 							}
 							return false;
