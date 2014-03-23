@@ -15,17 +15,6 @@
         android:background="@android:color/transparent"
         android:src="@drawable/settingsflag" />
 
-    <ImageButton
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/newbuttonstyle"
-        android:text="@string/getStarted" />
-
     <ImageView
         android:id="@+id/picture"
         android:layout_width="wrap_content"
@@ -35,11 +24,31 @@
         android:layout_marginBottom="60dp"
         android:src="@drawable/puzzlelocation" />
 
+    <ImageButton
+        android:id="@+id/startHard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/picture"
+        android:layout_alignRight="@+id/picture"
+        android:background="@android:color/transparent"
+        android:src="@drawable/hardbuttonstyle"
+        android:text="@string/getStarted" />
+
+    <ImageButton
+        android:id="@+id/startEasy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/picture"
+        android:layout_alignLeft="@+id/picture"
+        android:background="@android:color/transparent"
+        android:src="@drawable/easybuttonstyle"
+        android:text="@string/getStarted" />
+
     <ImageView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/start"
+        android:layout_above="@id/startEasy"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:background="@drawable/title" />
@@ -84,7 +93,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            
             android:background="@android:color/transparent" />
 
         <ImageView
@@ -257,9 +265,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ImageView02"
             android:layout_marginLeft="32dp"
-            android:minHeight="45dp"
             android:layout_toRightOf="@+id/ImageView23"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:minHeight="45dp" />
 
         <ImageView
             android:id="@+id/ImageView06"
@@ -268,7 +276,6 @@
             android:layout_above="@+id/ImageView18"
             android:layout_alignLeft="@+id/ImageView09"
             android:background="@android:color/transparent" />
-
     </RelativeLayout>
 
 </RelativeLayout>

@@ -9,22 +9,31 @@
     tools:context=".FullscreenActivity" >
 
     <ImageButton
-        android:id="@+id/newButton"
+        android:id="@+id/startEasy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/newbuttonstyle" />
+        android:src="@drawable/easybuttonstyle" />
+     <ImageButton
+        android:id="@+id/startHard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startEasy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/hardbuttonstyle" />
 
     <ImageButton
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/newButton"
-        android:layout_marginTop="25dp"
+        android:layout_below="@+id/startHard"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:src="@drawable/cancelbuttonstyle" />
 
@@ -34,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/resetButton"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:src="@drawable/resetbuttonstyle" />
 

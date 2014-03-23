@@ -64,13 +64,23 @@ public class FullscreenActivity extends Activity {
 		findViewById(R.id.picture).setVisibility(View.INVISIBLE);
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
 		findViewById(R.id.piecesLayout).setVisibility(View.INVISIBLE);
-		findViewById(R.id.start).setOnClickListener(new OnClickListener() {
+		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
+		findViewById(R.id.startEasy).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 				startActivityForResult(intent, CAMERA_REQUEST);
-				///hard=true;
+				hard=false;
+			}
+		});
+		findViewById(R.id.startHard).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				startActivityForResult(intent, CAMERA_REQUEST);
+				hard=true;
 			}
 		});
 		findViewById(R.id.settingsButton).setOnClickListener(new OnClickListener() {
@@ -83,11 +93,23 @@ public class FullscreenActivity extends Activity {
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); 
 				dialog.setContentView(R.layout.puzzle_layout);
 				dialog.setCanceledOnTouchOutside(true);
-				dialog.findViewById(R.id.newButton).setOnClickListener(new OnClickListener() {
+				dialog.findViewById(R.id.startEasy).setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						dialog.dismiss();
+						hard=false;
+						Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+						startActivityForResult(intent, CAMERA_REQUEST);
+					}
+				});
+				dialog.findViewById(R.id.startHard).setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+						hard=true;
 						Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
 						startActivityForResult(intent, CAMERA_REQUEST);
@@ -99,6 +121,7 @@ public class FullscreenActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						reset();
+						dialog.dismiss();
 					}
 				});
 				dialog.findViewById(R.id.cancelButton).setOnClickListener(new OnClickListener() {
@@ -160,7 +183,8 @@ public class FullscreenActivity extends Activity {
 			ImageView v = (ImageView) findViewById(R.id.picture);
 
 			findViewById(R.id.picture).setVisibility(View.VISIBLE);
-			findViewById(R.id.start).setVisibility(View.GONE);
+			findViewById(R.id.startEasy).setVisibility(View.GONE);
+			findViewById(R.id.startHard).setVisibility(View.GONE);
 			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
 			findViewById(R.id.title).setVisibility(View.GONE); 
 			ImageSlicer imageSlice;
