@@ -43,7 +43,7 @@ public class PuzzleView extends ViewGroup implements OnTouchListener, OnDragList
 		for (PuzzlePiece piece : images) {
 			ImageView iv = new ImageView(context);
 			iv.setImageBitmap(piece.getImage());
-			iv.setOnTouchListener(this);
+			iv.setOnTouchListener(this)
 			iv.setOnDragListener(this);
 			iv.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 	

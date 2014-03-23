@@ -1,5 +1,6 @@
 package edu.american.toddlerselfie;
 
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -39,6 +40,7 @@ public class FullscreenActivity extends Activity {
 		setContentView(R.layout.activity_fullscreen);
 		findViewById(R.id.picture).setVisibility(View.INVISIBLE);
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
+		findViewById(R.id.piecesLayout).setVisibility(View.INVISIBLE);
 		findViewById(R.id.start).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -92,7 +94,7 @@ public class FullscreenActivity extends Activity {
 		if (requestCode == CAMERA_PIC_REQUEST) {
 			Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 			thumbnail = Bitmap.createScaledBitmap(thumbnail, 720, 480, true);
-			
+
 			ImageView v = (ImageView) findViewById(R.id.picture);
 			ImageSlicer is = new ImageSlicer(this);
 			v.setImageBitmap(is.puzzlify(thumbnail).get(7).getImage());
@@ -101,30 +103,16 @@ public class FullscreenActivity extends Activity {
 			findViewById(R.id.start).setVisibility(View.GONE);
 			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
 			findViewById(R.id.title).setVisibility(View.GONE);
-			
+
 			ImageSlicer imageSlice= new ImageSlicer(this);
 			pieces=imageSlice.puzzlify(thumbnail);
+			Collections.shuffle(pieces);
 			((ImageView) findViewById(R.id.picture)).setImageBitmap(pieces.get(0).getImage());
-			puzzleView=new PuzzleView(context, pieces);
-			setContentView(puzzleView);
-			puzzleView.invalidate();
-			puzzleView.setVisibility(View.VISIBLE);
-//			for (PuzzlePiece piece : pieces) {
-//				ImageView iv = new ImageView(context);
-//				iv.setImageBitmap(piece.getImage());
-//				//iv.setOnClickListener(this);
-//			//	iv.setOnDragListener(this);
-//				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//				params.setMargins((int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000);
-//				iv.setX((int)Math.random()*1000);
-//				iv.setY((int)Math.random()*1000);
-//				iv.setLayoutParams(params);
-//				this.addContentView(iv, iv.getLayoutParams());
-//				//views.put(iv, piece);	
-//			}
-			//this.addTouchables(toArrayList(views.keySet()));
-			
+			for (int i = 0; i < ((ViewGroup) findViewById(R.id.piecesLayout)).getChildCount()-1; i++) {
+				ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+				view.setImageBitmap(pieces.get(i).getImage());
+			}
+			findViewById(R.id.piecesLayout).setVisibility(View.VISIBLE);
 		}
 	}
-
 }

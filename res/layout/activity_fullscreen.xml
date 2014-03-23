@@ -1,11 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".FullscreenActivity" 
-    android:id="@+id/mainLayout"
-    >
+    tools:context=".FullscreenActivity" >
 
     <ImageButton
         android:id="@+id/settingsButton"
@@ -40,9 +39,235 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/start"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_above="@id/start"
         android:background="@drawable/title" />
+
+    <RelativeLayout
+        android:id="@+id/piecesLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <ImageView
+            android:id="@+id/ImageView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="154dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ImageView01"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="35dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/spot1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="58dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/spot1"
+            android:layout_marginTop="29dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView06"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ImageView02"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="27dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView07"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView02"
+            android:layout_marginLeft="65dp"
+            android:layout_toRightOf="@+id/ImageView02"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView08"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView07"
+            android:layout_marginLeft="43dp"
+            android:layout_toRightOf="@+id/ImageView07"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView09"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView07"
+            android:layout_marginLeft="27dp"
+            android:layout_toRightOf="@+id/ImageView02"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView08"
+            android:layout_marginLeft="31dp"
+            android:layout_toRightOf="@+id/ImageView08"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView20"
+            android:layout_marginLeft="45dp"
+            android:layout_toRightOf="@+id/ImageView20"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView19"
+            android:layout_marginLeft="53dp"
+            android:layout_toRightOf="@+id/ImageView19"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView19"
+            android:layout_toLeftOf="@+id/ImageView18"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ImageView18"
+            android:layout_marginRight="95dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ImageView16"
+            android:layout_marginRight="39dp"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ImageView16"
+            android:layout_marginRight="45dp"
+            android:layout_toLeftOf="@+id/ImageView16"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ImageView03"
+            android:layout_alignLeft="@+id/ImageView11"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ImageView12"
+            android:layout_alignTop="@+id/ImageView05"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/ImageView07"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ImageView20"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/ImageView18"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ImageView15"
+            android:layout_alignTop="@+id/ImageView03"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/ImageView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/spot1"
+            android:layout_alignLeft="@+id/ImageView14"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/transparent" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
