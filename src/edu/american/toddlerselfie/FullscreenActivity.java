@@ -108,37 +108,11 @@ public class FullscreenActivity extends Activity {
 			pieces=imageSlice.puzzlify(thumbnail);
 			Collections.shuffle(pieces);
 			((ImageView) findViewById(R.id.picture)).setImageBitmap(pieces.get(0).getImage());
-<<<<<<< HEAD
 			for (int i = 0; i < ((ViewGroup) findViewById(R.id.piecesLayout)).getChildCount()-1; i++) {
 				ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
 				view.setImageBitmap(pieces.get(i).getImage());
 			}
 			findViewById(R.id.piecesLayout).setVisibility(View.VISIBLE);
-=======
-			puzzleView=new PuzzleView(context, pieces);
-			setContentView(puzzleView);
-			puzzleView.invalidate();
-			puzzleView.setVisibility(View.VISIBLE);
-			int ii = 0;
-			for (PuzzlePiece piece : pieces) {
-				if (ii++ < 6)
-					continue;
-				ImageView iv = new ImageView(context);
-				iv.setImageBitmap(piece.getImage());
-				//iv.setOnClickListener(this);
-			//	iv.setOnDragListener(this);
-				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				params.setMargins((int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000);
-				iv.setX((int)Math.random()*1000);
-				iv.setY((int)Math.random()*1000);
-				iv.setLayoutParams(params);
-				this.addContentView(iv, iv.getLayoutParams());
-				break;
-				//views.put(iv, piece);	
-			}
-			//this.addTouchables(toArrayList(views.keySet()));
-			
->>>>>>> 9ce535132a9aa40d0be053c297ffb3f451a58eaa
 		}
 	}
 }
