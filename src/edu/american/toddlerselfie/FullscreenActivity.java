@@ -99,7 +99,6 @@ public class FullscreenActivity extends Activity {
 			thumbnail = Bitmap.createScaledBitmap(thumbnail, 720, 480, true);
 
 			ImageView v = (ImageView) findViewById(R.id.picture);
-			ImageSlicer is = new ImageSlicer(this);
 
 			findViewById(R.id.picture).setVisibility(View.VISIBLE);
 			findViewById(R.id.start).setVisibility(View.GONE);
@@ -109,9 +108,10 @@ public class FullscreenActivity extends Activity {
 			ImageSlicer imageSlice= new ImageSlicer(this);
 			pieces=imageSlice.puzzlify(thumbnail);
 			Collections.shuffle(pieces);
-			for (int i = 0; i < ((ViewGroup) findViewById(R.id.piecesLayout)).getChildCount()-1; i++) {
+			for (int i = 0; i < pieces.size(); i++) {
 				ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
 				view.setImageBitmap(pieces.get(i).getImage());
+				view.setId(i);
 				view.setOnTouchListener(new OnTouchListener() {
 					public boolean onTouch(View v, MotionEvent event) {
 						float startX = 0,startY = 0,endX,endY;
@@ -125,9 +125,15 @@ public class FullscreenActivity extends Activity {
 						{
 							endX=event.getRawX();
 							endY=event.getRawY();
-							System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX);
+							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));
 							v.setX(endX-v.getHeight()/2);
-							v.setY(endY-v.getWidth()/2);
+							v.setY(endY-v.getWidth()/2);					
+							if(pieces.get(v.getId()).correctLocation(v.getX(), v.getY()))
+							{
+								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight);
+								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight);
+								v.setOnTouchListener(null);
+							}
 							return false;
 						}
 						return false;
