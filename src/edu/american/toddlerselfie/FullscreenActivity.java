@@ -229,8 +229,8 @@ public class FullscreenActivity extends Activity {
 			if(hard)
 			{
 				imageSlice= new ImageSlicer(this,80,40);
-				offsetx=200;
-				offsety=50;
+				offsetx=250;
+				offsety=100;
 				System.out.println("YES WE REACHED THIS");
 			}
 			else
@@ -262,7 +262,7 @@ public class FullscreenActivity extends Activity {
 							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));						
 							v.setX(Math.max(0, Math.min(screenWidth-v.getWidth(), endX-v.getHeight()/2)));
 							v.setY(Math.max(0, Math.min(screenHeight-v.getHeight(), endY-v.getWidth()/2)));					
-							if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx+5, v.getY()+offsety+5))
+							if(pieces.get(v.getId()).correctLocation(v.getX()+5, v.getY()+5))
 							{
 								//(screenWidth-720)/2
 								//(screenHeight-480)/2
