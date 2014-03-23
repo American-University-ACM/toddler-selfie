@@ -55,6 +55,16 @@ public class FullscreenActivity extends Activity {
 		screenWidth = size.x;
 		screenHeight = size.y;
 	}
+	
+	public void resize()
+	{
+		getSize();
+		//findViewById(R.id.mainLayout).setScaleX(screenWidth/findViewById(R.id.mainLayout).getWidth());
+		//findViewById(R.id.mainLayout).setScaleY(screenHeight/findViewById(R.id.mainLayout).getHeight());
+		findViewById(R.id.picture).setScaleX(screenWidth/720);
+		findViewById(R.id.picture).setScaleY(screenHeight/480);
+		
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +75,7 @@ public class FullscreenActivity extends Activity {
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
 		findViewById(R.id.piecesLayout).setVisibility(View.INVISIBLE);
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
+		resize();
 		findViewById(R.id.startEasy).setOnClickListener(new OnClickListener() {
 
 			@Override
