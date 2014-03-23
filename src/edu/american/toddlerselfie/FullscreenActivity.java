@@ -75,6 +75,7 @@ public class FullscreenActivity extends Activity {
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
 		findViewById(R.id.piecesLayout).setVisibility(View.INVISIBLE);
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
+		resize();
 		findViewById(R.id.startEasy).setOnClickListener(new OnClickListener() {
 
 			@Override
