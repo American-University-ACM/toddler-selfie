@@ -109,19 +109,23 @@ public class FullscreenActivity extends Activity {
 			setContentView(puzzleView);
 			puzzleView.invalidate();
 			puzzleView.setVisibility(View.VISIBLE);
-//			for (PuzzlePiece piece : pieces) {
-//				ImageView iv = new ImageView(context);
-//				iv.setImageBitmap(piece.getImage());
-//				//iv.setOnClickListener(this);
-//			//	iv.setOnDragListener(this);
-//				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//				params.setMargins((int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000);
-//				iv.setX((int)Math.random()*1000);
-//				iv.setY((int)Math.random()*1000);
-//				iv.setLayoutParams(params);
-//				this.addContentView(iv, iv.getLayoutParams());
-//				//views.put(iv, piece);	
-//			}
+			int ii = 0;
+			for (PuzzlePiece piece : pieces) {
+				if (ii++ < 6)
+					continue;
+				ImageView iv = new ImageView(context);
+				iv.setImageBitmap(piece.getImage());
+				//iv.setOnClickListener(this);
+			//	iv.setOnDragListener(this);
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				params.setMargins((int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000, (int)Math.random()*1000);
+				iv.setX((int)Math.random()*1000);
+				iv.setY((int)Math.random()*1000);
+				iv.setLayoutParams(params);
+				this.addContentView(iv, iv.getLayoutParams());
+				break;
+				//views.put(iv, piece);	
+			}
 			//this.addTouchables(toArrayList(views.keySet()));
 			
 		}
