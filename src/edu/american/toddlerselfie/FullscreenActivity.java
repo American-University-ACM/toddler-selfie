@@ -230,14 +230,14 @@ public class FullscreenActivity extends Activity {
 			{
 				imageSlice= new ImageSlicer(this,80,40);
 				offsetx=250;
-				offsety=100;
+				offsety=30;
 				System.out.println("YES WE REACHED THIS");
 			}
 			else
 			{
 				imageSlice= new ImageSlicer(this);
 				offsetx=150;
-				offsety=160;
+				offsety=30;
 				System.out.println("YES WE REACHED THIS 2");
 			}
 			pieces=imageSlice.puzzlify(thumbnail);
