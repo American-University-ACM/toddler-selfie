@@ -35,6 +35,12 @@ public class FullscreenActivity extends Activity {
 	private Dialog dialog;
 	private ViewGroup layout;
 	private View viewPressed;
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		// Update your UI here.
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -128,10 +134,10 @@ public class FullscreenActivity extends Activity {
 							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));
 							v.setX(endX-v.getHeight()/2);
 							v.setY(endY-v.getWidth()/2);					
-							if(pieces.get(v.getId()).correctLocation(v.getX(), v.getY()))
+							if(pieces.get(v.getId()).correctLocation(v.getX()-(v.getWidth()/2), v.getY()-(v.getHeight()/2)))
 							{
 								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight);
-								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight);
+								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-180);
 								v.setOnTouchListener(null);
 							}
 							return false;
