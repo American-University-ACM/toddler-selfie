@@ -121,7 +121,7 @@ public class FullscreenActivity extends Activity {
 							startY=v.getY();
 							return true;
 						}
-						else if(event.getAction()==MotionEvent.ACTION_MOVE)
+						else if(event.getAction()==MotionEvent.ACTION_MOVE && v.getX() <1280-v.getHeight() && v.getX() > 0 && v.getY() < 720 - v.getHeight() && v.getY() > 0)
 						{
 							endX=event.getRawX();
 							endY=event.getRawY();
