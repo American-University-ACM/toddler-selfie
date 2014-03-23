@@ -173,7 +173,7 @@ public class ImageSlicer {
 					leftOffset = joinerWidth;
 				
 				top = pieces.get(row * cols + col).getImage();
-				bottom = pieces.get(row * cols + col + 1).getImage();
+				bottom = pieces.get((row + 1) * cols + col).getImage();
 				int maskIdx = (int) Math.floor(Math.random() * jSize);
 				mask = joiners.get(maskIdx);
 				flip = (Math.random() < 0.5) ? 1 : -1;
