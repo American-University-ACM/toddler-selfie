@@ -11,7 +11,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
@@ -32,6 +34,7 @@ public class FullscreenActivity extends Activity {
 	private Context context;
 	private Dialog dialog;
 	private ViewGroup layout;
+	private View viewPressed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,20 +100,40 @@ public class FullscreenActivity extends Activity {
 
 			ImageView v = (ImageView) findViewById(R.id.picture);
 			ImageSlicer is = new ImageSlicer(this);
-			v.setImageBitmap(is.puzzlify(thumbnail).get(7).getImage());
 
 			findViewById(R.id.picture).setVisibility(View.VISIBLE);
 			findViewById(R.id.start).setVisibility(View.GONE);
 			findViewById(R.id.settingsButton).setVisibility(View.VISIBLE);
-			findViewById(R.id.title).setVisibility(View.GONE);
+			findViewById(R.id.title).setVisibility(View.GONE); 
 
 			ImageSlicer imageSlice= new ImageSlicer(this);
 			pieces=imageSlice.puzzlify(thumbnail);
 			Collections.shuffle(pieces);
-			((ImageView) findViewById(R.id.picture)).setImageBitmap(pieces.get(0).getImage());
 			for (int i = 0; i < ((ViewGroup) findViewById(R.id.piecesLayout)).getChildCount()-1; i++) {
 				ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
 				view.setImageBitmap(pieces.get(i).getImage());
+				view.setOnTouchListener(new OnTouchListener() {
+					public boolean onTouch(View v, MotionEvent event) {
+						float startX = 0,startY = 0,endX,endY;
+						if(event.getAction()==MotionEvent.ACTION_DOWN)
+						{
+							startX=v.getX();
+							startY=v.getY();
+							return true;
+						}
+						else if(event.getAction()==MotionEvent.ACTION_MOVE)
+						{
+							endX=event.getRawX();
+							endY=event.getRawY();
+							System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX);
+							v.setX(endX-v.getHeight()/2);
+							v.setY(endY-v.getWidth()/2);
+							return false;
+						}
+						return false;
+					}
+					
+					});
 			}
 			findViewById(R.id.piecesLayout).setVisibility(View.VISIBLE);
 		}

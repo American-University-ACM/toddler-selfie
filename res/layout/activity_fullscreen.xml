@@ -33,7 +33,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/puzzlelocation" />
 
     <ImageView
         android:id="@+id/title"

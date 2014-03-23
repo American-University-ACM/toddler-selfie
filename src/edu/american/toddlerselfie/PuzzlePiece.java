@@ -26,4 +26,5 @@ public class PuzzlePiece {
 	public boolean correctLocation(double x, double y) {
 		return bb.contains(x, y);
 	}
+	
 }
