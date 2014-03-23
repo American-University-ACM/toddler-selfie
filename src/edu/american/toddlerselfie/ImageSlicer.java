@@ -52,12 +52,7 @@ public class ImageSlicer {
 	public List<PuzzlePiece> puzzlify(Bitmap img, int tileWidth, int joinerWidth) {
 
 		//Cut up pieces
-		PuzzlePiece[][] raws = slice(
-			img,
-			tileWidth + (2 * joinerWidth),
-			joinerWidth,
-			(int) (-.5 * joinerWidth)
-		);
+		PuzzlePiece[][] raws = slice(img, tileWidth, joinerWidth);
 		
 		int rows = raws.length,
 			cols = raws[0].length;
@@ -399,31 +394,38 @@ public class ImageSlicer {
 		return pieces;
 	}
 	
-	private PuzzlePiece[][] slice(Bitmap img, int tileSize, int overlap, int offset) {
+	private PuzzlePiece[][] slice(Bitmap img, int tileSize, int joinerSize) {
 		int imgWidth = img.getWidth(),
 			imgHeight = img.getHeight(),
-			x, y, w, h,
-			rows = (imgHeight - offset) / (tileSize - overlap),
-			cols = (imgWidth - offset) / (tileSize - overlap);
-		
+			x = 0, y = 0, w, h,
+			rows = imgHeight / (tileSize + joinerSize),
+			cols = imgWidth / (tileSize + joinerSize);
+			
 		PuzzlePiece[][] slices = new PuzzlePiece[rows][cols];
-		
+
 		for (int row = 0; row < rows; row++) {
-			y = (row * (tileSize - overlap)) + offset;
-			h = Math.min(tileSize, imgHeight - y);
-			if (y < 0) {
-				h += y;
-				y = 0;
-			}
+			if (row == 0 || row == rows - 1)
+				h = tileSize + (int) (1.5 * joinerSize);
+			else
+				h = tileSize + 2 * joinerSize;
+
+			y = Math.max(
+				(row * (tileSize + joinerSize)) - (int) (.5 * joinerSize),
+				0
+			);
 			
 			for (int col = 0; col < cols; col++) {
-				x = (col * (tileSize - overlap)) + offset;
-				w = Math.min(tileSize, imgWidth - x);
-				if (x < 0) {
-					w += x;
-					x = 0;
-				}
+				if (col == 0 || col == cols - 1)
+					w = tileSize + (int) (1.5 * joinerSize);
+				else
+					w = tileSize + 2 * joinerSize;
 				
+				x = Math.max(
+					(col * (tileSize + joinerSize)) - (int) (.5 * joinerSize),
+					0
+				);
+				
+				System.out.println(x + ", " + y + ", " + w + ", " + h);
 				slices[row][col] = new PuzzlePiece(
 					Bitmap.createBitmap(img, x, y, w, h),
 					new BoundingBox(
