@@ -61,8 +61,26 @@ public class FullscreenActivity extends Activity {
 		getSize();
 		//findViewById(R.id.mainLayout).setScaleX(screenWidth/findViewById(R.id.mainLayout).getWidth());
 		//findViewById(R.id.mainLayout).setScaleY(screenHeight/findViewById(R.id.mainLayout).getHeight());
-		findViewById(R.id.picture).setScaleX(screenWidth/720);
-		findViewById(R.id.picture).setScaleY(screenHeight/480);
+		System.out.println("SCREENW "+screenWidth);
+		System.out.println("SCREENH "+screenHeight);
+		float scale = (float)(( screenHeight * 0.666 )/720);
+		System.out.println("SCALE "+scale);
+		//findViewById(R.id.picture).setScaleY(scale);
+		//findViewById(R.id.picture).setScaleX(scale);
+		/*
+		else{
+			System.out.println("DID NOT SCALEX "+(screenWidth * 0.666 ));
+		}
+		if( (screenHeight* 0.666 ) > 540){
+			findViewById(R.id.picture).setScaleX((float)( screenWidth * 0.666 ));
+			System.out.println("SCALEY ");
+		}
+		else{
+			System.out.println("DID NOT SCALEY "+(screenHeight* 0.666));
+		}
+		*/
+		//findViewById(R.id.picture).setScaleX( ( screenWidth * (2/3) ) / 760 );
+		//findViewById(R.id.picture).setScaleY( ( screenHeight* (2/3) ) / 540 );
 		
 	}
 
