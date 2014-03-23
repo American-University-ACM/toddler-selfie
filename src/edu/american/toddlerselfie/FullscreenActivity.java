@@ -109,9 +109,11 @@ public class FullscreenActivity extends Activity {
 			ImageSlicer imageSlice= new ImageSlicer(this);
 			pieces=imageSlice.puzzlify(thumbnail);
 			Collections.shuffle(pieces);
+			System.out.println("There are this many pieces "+pieces.size());
 			for (int i = 0; i < ((ViewGroup) findViewById(R.id.piecesLayout)).getChildCount()-1; i++) {
 				ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
 				view.setImageBitmap(pieces.get(i).getImage());
+				view.setId(i);
 				view.setOnTouchListener(new OnTouchListener() {
 					public boolean onTouch(View v, MotionEvent event) {
 						float startX = 0,startY = 0,endX,endY;
@@ -125,9 +127,11 @@ public class FullscreenActivity extends Activity {
 						{
 							endX=event.getRawX();
 							endY=event.getRawY();
-							System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX);
+							System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));
 							v.setX(endX-v.getHeight()/2);
-							v.setY(endY-v.getWidth()/2);
+							v.setY(endY-v.getWidth()/2);					
+							if(pieces.get(v.getId()).correctLocation(v.getX(), v.getY()))
+								v.setOnTouchListener(null);
 							return false;
 						}
 						return false;

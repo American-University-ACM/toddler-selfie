@@ -34,12 +34,12 @@ public class PuzzleView extends ViewGroup implements OnTouchListener, OnDragList
 	public PuzzleView(Context context, List<PuzzlePiece> images) {
 		super(context);
 
-		//wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		//display = wm.getDefaultDisplay();
-		//size = new Point();
-		//display.getSize(size);
-		//screenWidth = this.getWidth();
-		//screenHeight = this.getHeight();
+		wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		display = wm.getDefaultDisplay();
+		size = new Point();
+		display.getSize(size);
+		screenWidth = this.getWidth();
+		screenHeight = this.getHeight();
 		for (PuzzlePiece piece : images) {
 			ImageView iv = new ImageView(context);
 			iv.setImageBitmap(piece.getImage());
