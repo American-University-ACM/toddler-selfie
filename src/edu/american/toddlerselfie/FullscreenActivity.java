@@ -70,6 +70,12 @@ public class FullscreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context=this;
+		
+		for(int i=0;i<24;i++)
+		{
+			((ViewGroup)(findViewById(R.id.piecesLayout))).getChildAt(i).setBackgroundResource(0);
+		}
+		
 		setContentView(R.layout.activity_fullscreen);
 		findViewById(R.id.picture).setVisibility(View.INVISIBLE);
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
@@ -145,15 +151,13 @@ public class FullscreenActivity extends Activity {
 				dialog.show();
 			}
 		});
-
-
 	}
 
 	protected void reset()
 	{
 		Collections.shuffle(pieces);
 		for (int i = 0; i < pieces.size(); i++) {
-			ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+			ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i*3);
 			view.setImageBitmap(pieces.get(i).getImage());
 			view.setId(i);
 			view.setOnTouchListener(new OnTouchListener() {
@@ -236,12 +240,12 @@ public class FullscreenActivity extends Activity {
 							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));						
 							v.setX(Math.max(0, Math.min(screenWidth-v.getWidth(), endX-v.getHeight()/2)));
 							v.setY(Math.max(0, Math.min(screenHeight-v.getHeight(), endY-v.getWidth()/2)));					
-							if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
+							/*if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
 							{
 								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
 								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
-								v.setOnTouchListener(null);
-							}
+								//v.setOnTouchListener(null);
+							}*/
 							return false;
 						}
 						return false;
