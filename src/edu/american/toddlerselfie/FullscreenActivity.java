@@ -55,6 +55,13 @@ public class FullscreenActivity extends Activity {
 		screenWidth = size.x;
 		screenHeight = size.y;
 	}
+	
+	public void resize()
+	{
+		getSize();
+		findViewById(R.id.mainLayout).setScaleX(screenWidth/findViewById(R.id.mainLayout).getWidth());
+		findViewById(R.id.mainLayout).setScaleY(screenHeight/findViewById(R.id.mainLayout).getHeight());
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
