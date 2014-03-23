@@ -99,7 +99,6 @@ public class FullscreenActivity extends Activity {
 			thumbnail = Bitmap.createScaledBitmap(thumbnail, 720, 480, true);
 
 			ImageView v = (ImageView) findViewById(R.id.picture);
-			ImageSlicer is = new ImageSlicer(this);
 
 			findViewById(R.id.picture).setVisibility(View.VISIBLE);
 			findViewById(R.id.start).setVisibility(View.GONE);
@@ -109,7 +108,7 @@ public class FullscreenActivity extends Activity {
 			ImageSlicer imageSlice= new ImageSlicer(this);
 			pieces=imageSlice.puzzlify(thumbnail);
 			Collections.shuffle(pieces);
-			for (int i = 0; i < ((ViewGroup) findViewById(R.id.piecesLayout)).getChildCount()-1; i++) {
+			for (int i = 0; i < pieces.size(); i++) {
 				ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
 				view.setImageBitmap(pieces.get(i).getImage());
 				view.setOnTouchListener(new OnTouchListener() {

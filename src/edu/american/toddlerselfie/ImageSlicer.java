@@ -8,26 +8,45 @@ import android.graphics.Bitmap;
 
 public class ImageSlicer {
 
-	static final int JOINER_WIDTH = 80;
-	static final int JOINER_HEIGHT = 40;
+	int tileWidth;
+	int joinerWidth;
+	static final int DEFAULT_TILE_WIDTH = 160;
+	static final int DEFAULT_JOINER_WIDTH = 80;
+	
 	static final String JOINER_SHEET = "joiners.bmp";
+	static final int JOINER_SRC_WIDTH = 80;
+	static final int JOINER_SRC_HEIGHT = 40;
 	
 	ArrayList<Bitmap> joiners;
 
 	public ImageSlicer(Context ctx) {
+		this(ctx, DEFAULT_TILE_WIDTH, DEFAULT_JOINER_WIDTH);
+	}
+	
+	public ImageSlicer(Context ctx, int tileWidth, int joinerWidth) {
 		this.joiners = new ArrayList<Bitmap>();
-
+		this.tileWidth = tileWidth;
+		this.joinerWidth = joinerWidth;
+		
 		ImageLoader il = new ImageLoader(ctx);
 		Bitmap allJoiners = il.load(JOINER_SHEET);
 		System.out.println("Got joiners file");
 
-		for (int offset = 0; offset + JOINER_HEIGHT < allJoiners.getHeight(); offset += JOINER_HEIGHT) {
-			this.joiners.add(Bitmap.createBitmap(allJoiners, 0, offset, JOINER_WIDTH, JOINER_HEIGHT));
+		Bitmap j;
+		for (int offset = 0; offset + JOINER_SRC_HEIGHT < allJoiners.getHeight(); offset += JOINER_SRC_HEIGHT) {
+			j = Bitmap.createScaledBitmap(
+				Bitmap.createBitmap(allJoiners, 0, offset, JOINER_SRC_WIDTH, JOINER_SRC_HEIGHT),
+				tileWidth,
+				joinerWidth,
+				true
+			);
+
+			joiners.add(j);
 		}
 	}
 
 	public List<PuzzlePiece> puzzlify(Bitmap img) {
-		return puzzlify(img, JOINER_WIDTH, JOINER_HEIGHT);
+		return puzzlify(img, this.tileWidth, this.joinerWidth);
 	}
 
 	public List<PuzzlePiece> puzzlify(Bitmap img, int tileWidth, int joinerWidth) {
