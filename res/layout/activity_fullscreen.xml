@@ -24,6 +24,8 @@
         android:layout_centerVertical="true"
         android:minHeight="540dp"
         android:minWidth="760dp"
+        android:maxHeight="540dp"
+        android:maxWidth="760dp"
         android:src="@drawable/puzzlelocation" />
 
     <ImageButton
