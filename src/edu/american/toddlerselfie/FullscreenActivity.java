@@ -121,13 +121,13 @@ public class FullscreenActivity extends Activity {
 							startY=v.getY();
 							return true;
 						}
-						else if(event.getAction()==MotionEvent.ACTION_MOVE && v.getX() <1280-v.getHeight() && v.getX() > 0 && v.getY() < 720 - v.getHeight() && v.getY() > 0)
+						else if(event.getAction()==MotionEvent.ACTION_MOVE /*&& v.getX() <1280-v.getHeight() && v.getX() > 0 && v.getY() < 720 - v.getHeight() && v.getY() > 0*/)
 						{
 							endX=event.getRawX();
 							endY=event.getRawY();
 							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));
-							v.setX(endX-v.getHeight()/2);
-							v.setY(endY-v.getWidth()/2);					
+							v.setX(Math.max(0, Math.min(1280-v.getWidth(),endX-v.getHeight()/2)));
+							v.setY(Math.max(0, Math.min( 720-v.getHeight(), endY-v.getWidth()/2)));					
 							if(pieces.get(v.getId()).correctLocation(v.getX(), v.getY()))
 							{
 								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight);
