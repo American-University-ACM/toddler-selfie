@@ -2,10 +2,10 @@ package edu.american.toddlerselfie;
 
 public class BoundingBox {
 
-	private double xLeft = 0;
-	private double yLeft = 0;
-	private double xRight = 0;
-	private double yRight = 0;
+	public double xLeft = 0;
+	public double yLeft = 0;
+	public double xRight = 0;
+	public double yRight = 0;
 
 	public BoundingBox(double xLeft, double yLeft, double xRight, double yRight) {
 		this.xLeft = xLeft;

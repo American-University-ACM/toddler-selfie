@@ -127,11 +127,15 @@ public class FullscreenActivity extends Activity {
 						{
 							endX=event.getRawX();
 							endY=event.getRawY();
-							System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));
+							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));
 							v.setX(endX-v.getHeight()/2);
 							v.setY(endY-v.getWidth()/2);					
 							if(pieces.get(v.getId()).correctLocation(v.getX(), v.getY()))
+							{
+								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight);
+								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight);
 								v.setOnTouchListener(null);
+							}
 							return false;
 						}
 						return false;
