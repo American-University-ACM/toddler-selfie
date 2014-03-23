@@ -2,13 +2,16 @@ package edu.american.toddlerselfie;
 
 import java.util.Collections;
 import java.util.List;
+import java.lang.Object;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
@@ -35,6 +38,15 @@ public class FullscreenActivity extends Activity {
 	private Dialog dialog;
 	private ViewGroup layout;
 	private View viewPressed;
+	public int screenWidth,screenHeight;
+	
+	public void getSize() {
+		Display display = getWindowManager().getDefaultDisplay();
+		    Point size = new Point();
+		    display.getSize(size);
+		    screenWidth = size.x;
+		    screenHeight = size.y;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +109,7 @@ public class FullscreenActivity extends Activity {
 		if (requestCode == CAMERA_PIC_REQUEST) {
 			Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 			thumbnail = Bitmap.createScaledBitmap(thumbnail, 720, 480, true);
-
+			getSize() ;
 			ImageView v = (ImageView) findViewById(R.id.picture);
 
 			findViewById(R.id.picture).setVisibility(View.VISIBLE);
@@ -121,13 +133,15 @@ public class FullscreenActivity extends Activity {
 							startY=v.getY();
 							return true;
 						}
-						else if(event.getAction()==MotionEvent.ACTION_MOVE /*&& v.getX() <1280-v.getHeight() && v.getX() > 0 && v.getY() < 720 - v.getHeight() && v.getY() > 0*/)
+						else if(event.getAction()==MotionEvent.ACTION_MOVE)
 						{
 							endX=event.getRawX();
 							endY=event.getRawY();
 							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));
-							v.setX(Math.max(0, Math.min(1280-v.getWidth(),endX-v.getHeight()/2)));
-							v.setY(Math.max(0, Math.min( 720-v.getHeight(), endY-v.getWidth()/2)));					
+							
+							
+							v.setX(Math.max(0, Math.min(screenWidth-v.getWidth(), endX-v.getHeight()/2)));
+							v.setY(Math.max(0, Math.min(screenHeight-v.getHeight(), endY-v.getWidth()/2)));					
 							if(pieces.get(v.getId()).correctLocation(v.getX(), v.getY()))
 							{
 								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight);
