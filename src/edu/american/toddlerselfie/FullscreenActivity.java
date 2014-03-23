@@ -256,8 +256,8 @@ public class FullscreenActivity extends Activity {
 							v.setY(Math.max(0, Math.min(screenHeight-v.getHeight(), endY-v.getWidth()/2)));					
 							if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
 							{
-								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
-								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
+								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xLeft-offsetx);
+								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yLeft-offsety);
 								v.setOnTouchListener(null);
 							}
 							return false;

@@ -275,7 +275,7 @@ public class ImageSlicer {
 					leftOffset = tileWidth + (int) (joinerWidth / 2);
 				else
 					leftOffset = tileWidth + joinerWidth;
-				
+
 				tl = pieces.get(row * cols + col).getImage();
 				tr = pieces.get(row * cols + col + 1).getImage();
 				bl = pieces.get((row + 1) * cols + col).getImage();
@@ -390,7 +390,112 @@ public class ImageSlicer {
 			}
 		}
 
+		//Overlap areas in TOP edge pieces
+		leftPixels = new int[(int)(joinerWidth * joinerWidth / 4)];
+		rightPixels = new int[(int)(joinerWidth * joinerWidth / 4)];
+		for (ii = 0; ii < leftPixels.length; ii++) {
+			leftPixels[ii] = 0x00000000;
+			rightPixels[ii] = 0x00000000;
+		}
+		for (int col = 0; col < cols - 1; col++) {
+			left = pieces.get(col).getImage();
+			right = pieces.get(col + 1).getImage();
+
+			left.setPixels(
+				leftPixels,
+				0,
+				(int)(joinerWidth / 2),
+				left.getWidth() - (int)(joinerWidth / 2),
+				0,
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);
+			right.setPixels(
+				rightPixels,
+				0,
+				(int)(joinerWidth / 2),
+				0,
+				0,
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);			
+		}
 		
+		//Overlap areas in BOTTOM edge pieces
+		for (int col = 0; col < cols - 1; col++) {
+			left = pieces.get((rows - 1) * cols + col).getImage();
+			right = pieces.get((rows - 1) * cols + col + 1).getImage();
+
+			left.setPixels(
+				leftPixels,
+				0,
+				(int)(joinerWidth / 2),
+				left.getWidth() - (int)(joinerWidth / 2),
+				left.getHeight() - (int)(joinerWidth / 2),
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);
+			right.setPixels(
+				rightPixels,
+				0,
+				(int)(joinerWidth / 2),
+				0,
+				right.getHeight() - (int)(joinerWidth / 2),
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);			
+		}
+
+		//Overlap areas in LEFT edge pieces
+		for (int row = 0; row < rows - 1; row++) {
+			top = pieces.get(row * cols).getImage();
+			bottom = pieces.get((row + 1) * cols).getImage();
+
+			top.setPixels(
+				leftPixels,
+				0,
+				(int)(joinerWidth / 2),
+				0,
+				top.getHeight() - (int)(joinerWidth / 2),
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);
+			bottom.setPixels(
+				leftPixels,
+				0,
+				(int)(joinerWidth / 2),
+				0,
+				0,
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);			
+		}
+
+		//Overlap areas in RIGHT edge pieces
+		for (int row = 0; row < rows - 1; row++) {
+			top = pieces.get(row * cols + (cols - 1)).getImage();
+			bottom = pieces.get((row + 1) * cols + (cols - 1)).getImage();
+
+			top.setPixels(
+				leftPixels,
+				0,
+				(int)(joinerWidth / 2),
+				top.getWidth() - (int)(joinerWidth / 2),
+				top.getHeight() - (int)(joinerWidth / 2),
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);
+			bottom.setPixels(
+				leftPixels,
+				0,
+				(int)(joinerWidth / 2),
+				bottom.getWidth() - (int)(joinerWidth / 2),
+				0,
+				(int)(joinerWidth / 2),
+				(int)(joinerWidth / 2)
+			);			
+		}
+
 		return pieces;
 	}
 	
