@@ -22,7 +22,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
-        android:adjustViewBounds="true"
+        android:minHeight="540dp"
+        android:minWidth="760dp"
         android:src="@drawable/puzzlelocation" />
 
     <ImageButton
