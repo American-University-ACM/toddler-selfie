@@ -58,24 +58,13 @@ public class FullscreenActivity extends Activity {
 	
 	public void resize()
 	{
-		getSize();
-		//findViewById(R.id.mainLayout).setScaleX(screenWidth/findViewById(R.id.mainLayout).getWidth());
-		//findViewById(R.id.mainLayout).setScaleY(screenHeight/findViewById(R.id.mainLayout).getHeight());
-		findViewById(R.id.picture).setScaleX(screenWidth/720);
-		findViewById(R.id.picture).setScaleY(screenHeight/480);
-		
+		getSize();		
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context=this;
-		
-		for(int i=0;i<24;i++)
-		{
-			((ViewGroup)(findViewById(R.id.piecesLayout))).getChildAt(i).setBackgroundResource(0);
-		}
-		
 		setContentView(R.layout.activity_fullscreen);
 		findViewById(R.id.picture).setVisibility(View.INVISIBLE);
 		findViewById(R.id.settingsButton).setVisibility(View.INVISIBLE);
@@ -86,6 +75,12 @@ public class FullscreenActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				for (int i = 0; i < 24; i++) {
+					ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+					//ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+					view.setImageBitmap(null);
+					
+				}
 				Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 				startActivityForResult(intent, CAMERA_REQUEST);
 				hard=false;
@@ -114,10 +109,14 @@ public class FullscreenActivity extends Activity {
 
 					@Override
 					public void onClick(View v) {
+						for (int i = 0; i < 24; i++) {
+							ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+							view.setImageBitmap(null);
+							
+						}
 						dialog.dismiss();
 						hard=false;
 						Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
 						startActivityForResult(intent, CAMERA_REQUEST);
 					}
 				});
@@ -125,10 +124,14 @@ public class FullscreenActivity extends Activity {
 
 					@Override
 					public void onClick(View v) {
+						for (int i = 0; i < 24; i++) {
+							ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+							view.setImageBitmap(null);
+							
+						}
 						dialog.dismiss();
 						hard=true;
 						Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
 						startActivityForResult(intent, CAMERA_REQUEST);
 					}
 				});
@@ -156,8 +159,14 @@ public class FullscreenActivity extends Activity {
 	protected void reset()
 	{
 		Collections.shuffle(pieces);
+		for (int i = 0; i < 24; i++) {
+			ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+			//ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
+			view.setImageBitmap(null);	
+			view.setOnTouchListener(null);
+		}
 		for (int i = 0; i < pieces.size(); i++) {
-			ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i*3);
+			ImageView view = (ImageView) ((ViewGroup) findViewById(R.id.piecesLayout)).getChildAt(i);
 			view.setImageBitmap(pieces.get(i).getImage());
 			view.setId(i);
 			view.setOnTouchListener(new OnTouchListener() {
@@ -176,16 +185,17 @@ public class FullscreenActivity extends Activity {
 						//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));						
 						v.setX(Math.max(0, Math.min(screenWidth-v.getWidth(), endX-v.getHeight()/2)));
 						v.setY(Math.max(0, Math.min(screenHeight-v.getHeight(), endY-v.getWidth()/2)));					
-						if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
-						{
-							v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
-							v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
-							v.setOnTouchListener(null);
-						}
+//						if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
+//						{
+//							v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
+//							v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
+//							v.setOnTouchListener(null);
+//						}
 						return false;
 					}
 					return false;
 				}
+
 			});
 		}
 	}
@@ -240,12 +250,12 @@ public class FullscreenActivity extends Activity {
 							//System.out.println("difference for x is "+(endX-startX) +", "+ v.getTranslationX() +", "+startX +","+getResources().getResourceEntryName(v.getId()));						
 							v.setX(Math.max(0, Math.min(screenWidth-v.getWidth(), endX-v.getHeight()/2)));
 							v.setY(Math.max(0, Math.min(screenHeight-v.getHeight(), endY-v.getWidth()/2)));					
-							/*if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
-							{
-								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
-								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
-								//v.setOnTouchListener(null);
-							}*/
+//							if(pieces.get(v.getId()).correctLocation(v.getX()+offsetx, v.getY()+offsety))
+//							{
+//								v.setX((float) pieces.get(v.getId()).getCorrectBoundingBox().xRight-offsetx);
+//								v.setY((float) pieces.get(v.getId()).getCorrectBoundingBox().yRight-offsety);
+//								v.setOnTouchListener(null);
+//							}
 							return false;
 						}
 						return false;
