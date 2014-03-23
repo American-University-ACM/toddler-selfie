@@ -121,18 +121,14 @@ public class ImageSlicer {
 				for (int pxRow = 0; pxRow < tileWidth; pxRow++) {
 					for (int pxCol = 0; pxCol < joinerWidth; pxCol++) {
 						pxMask = maskPixels[pxCol * tileWidth + pxRow]
-								<< 8
-								& 0xFF000000;
-//						System.out.println("Mask value at " + pxRow + ", " + pxCol + ": " + Integer.toHexString(maskPixels[pxCol * tileWidth + pxRow]));
-//						System.out.println("Computed value: " + Integer.toHexString(pxMask));
+								<< 8;
 						leftPixels[ii] =
-							pxMask
+							(pxMask & 0xFF000000)
 							| (leftPixels[ii] & 0x00FFFFFF);
 						rightPixels[ii] =
-								(0 - pxMask)
-								| (rightPixels[ii] & 0x00FFFFFF);
+							(~pxMask & 0xFF000000)
+							| (rightPixels[ii] & 0x00FFFFFF);
 
-//						System.out.println("Final: " + leftPixels[ii]);
 						ii++;
 					}
 				}
@@ -184,6 +180,7 @@ public class ImageSlicer {
 				
 				//Load relevant portions of images
 				System.out.println("Loading from " + row + ", " + col + " and " + row + ", " + (col+1));
+				System.out.println("Bottom location: " + tileWidth + "x" + joinerWidth + ", offset by " + leftOffset + "x0");
 				System.out.println("Using top-bottom joiner " + maskIdx);
 				top.getPixels(
 					topPixels,  //array
@@ -216,16 +213,13 @@ public class ImageSlicer {
 				//Do the mask
 				for (ii = 0; ii < topPixels.length; ii++) {
 					pxMask = maskPixels[ii]
-							<< 8
-							& 0xFF000000;
-	//						System.out.println("Mask value at " + pxRow + ", " + pxCol + ": " + Integer.toHexString(maskPixels[pxCol * tileWidth + pxRow]));
-	//						System.out.println("Computed value: " + Integer.toHexString(pxMask));
+							<< 8;
 					topPixels[ii] =
-						pxMask
+						(pxMask & 0xFF000000)
 						| (topPixels[ii] & 0x00FFFFFF);
 					bottomPixels[ii] =
-							(0 - pxMask)
-							| (bottomPixels[ii] & 0x00FFFFFF);
+						(~pxMask & 0xFF000000)
+						| (bottomPixels[ii] & 0x00FFFFFF);
 				}
 
 				//Put alpha-d values back into the bitmaps
@@ -249,6 +243,140 @@ public class ImageSlicer {
 				);
 			}
 		}
+
+		//Split up gap squares
+		Bitmap tl, tr, bl, br;
+		int[] tlPixels = new int[joinerWidth * joinerWidth];
+		int[] trPixels = new int[joinerWidth * joinerWidth];
+		int[] blPixels = new int[joinerWidth * joinerWidth];
+		int[] brPixels = new int[joinerWidth * joinerWidth];
+		for (int row = 0; row < rows - 1; row++) {
+			if (row == 0)
+				topOffset = tileWidth + (int) (joinerWidth / 2);
+			else
+				topOffset = tileWidth + joinerWidth;
+			
+			for (int col = 0; col < cols - 1; col++) {
+				if (col == 0)
+					leftOffset = tileWidth + (int) (joinerWidth / 2);
+				else
+					leftOffset = tileWidth + joinerWidth;
+				
+				tl = pieces.get(row * cols + col).getImage();
+				tr = pieces.get(row * cols + col + 1).getImage();
+				bl = pieces.get((row + 1) * cols + col).getImage();
+				br = pieces.get((row + 1) * cols + col + 1).getImage();
+				
+				tl.getPixels(
+					tlPixels,
+					0,
+					joinerWidth,
+					leftOffset,
+					topOffset,
+					joinerWidth,
+					joinerWidth
+				);
+				tr.getPixels(
+					trPixels,
+					0,
+					joinerWidth,
+					0,
+					topOffset,
+					joinerWidth,
+					joinerWidth
+				);
+				bl.getPixels(
+					blPixels,
+					0,
+					joinerWidth,
+					leftOffset,
+					0,
+					joinerWidth,
+					joinerWidth
+				);
+				br.getPixels(
+					brPixels,
+					0,
+					joinerWidth,
+					0,
+					0,
+					joinerWidth,
+					joinerWidth
+				);
+
+				ii = 0;
+				for (int pxRow = 0; pxRow < joinerWidth; pxRow++) {
+					for (int pxCol = 0; pxCol < joinerWidth; pxCol++) {
+						if (pxCol < joinerWidth / 2 && pxRow < joinerWidth / 2) {
+							//top left
+							trPixels[ii] = 0x00000000;
+							blPixels[ii] = 0x00000000;
+							brPixels[ii] = 0x00000000;
+						}
+						else if (pxRow < joinerWidth / 2) {
+							//top right
+							tlPixels[ii] = 0x00000000;
+							blPixels[ii] = 0x00000000;
+							brPixels[ii] = 0x00000000;
+						}
+						else if (pxCol < joinerWidth / 2) {
+							//bottom left
+							tlPixels[ii] = 0x00000000;
+							trPixels[ii] = 0x00000000;
+							brPixels[ii] = 0x00000000;
+						}
+						else {
+							//bottom right
+							tlPixels[ii] = 0x00000000;
+							trPixels[ii] = 0x00000000;
+							blPixels[ii] = 0x00000000;
+						}
+						
+						ii++;
+					}
+				}
+
+				//writeback
+				tl.setPixels(
+					tlPixels,
+					0,
+					joinerWidth,
+					leftOffset,
+					topOffset,
+					joinerWidth,
+					joinerWidth
+				);
+				tr.setPixels(
+					trPixels,
+					0,
+					joinerWidth,
+					0,
+					topOffset,
+					joinerWidth,
+					joinerWidth
+				);
+				bl.setPixels(
+					blPixels,
+					0,
+					joinerWidth,
+					leftOffset,
+					0,
+					joinerWidth,
+					joinerWidth
+				);
+				br.setPixels(
+					brPixels,
+					0,
+					joinerWidth,
+					0,
+					0,
+					joinerWidth,
+					joinerWidth
+				);
+			}
+		}
+
+		
 		return pieces;
 	}
 	
